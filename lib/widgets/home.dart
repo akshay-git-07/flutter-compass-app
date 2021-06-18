@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -14,7 +15,8 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    _fetchPermissionStatus();
+    // _fetchPermissionStatus();
+    _requestPermissions();
   }
 
   @override
@@ -23,7 +25,7 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         backgroundColor: Color(0xFF1D5A9F),
         title: Center(
-          child: const Text('Flutter Compass'),
+          child: const Text('Talking Compass'),
         ),
       ),
       body: Builder(builder: (context) {
@@ -31,9 +33,21 @@ class _HomeState extends State<Home> {
           return Compass();
         } else {
           return _buildPermissionSheet();
+          // return Container(
+          //   child: Text(
+          //     'Please grant location permission',
+          //     style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+          //   ),
+          // );
         }
       }),
     );
+  }
+
+  _requestPermissions() {
+    Permission.locationWhenInUse.request().then((ignored) {
+      _fetchPermissionStatus();
+    });
   }
 
   Widget _buildPermissionSheet() {
@@ -41,7 +55,16 @@ class _HomeState extends State<Home> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('Location Permission Required'),
+          Text(
+            'Location Permission Required',
+            style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(
+            height: 30.0,
+          ),
           ElevatedButton(
             child: Text('Request Permissions'),
             onPressed: () {

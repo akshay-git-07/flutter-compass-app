@@ -4,7 +4,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
    <application
-        android:label="flutter_compass_app"
+        android:label="Talking Compass"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
